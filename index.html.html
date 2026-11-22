@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="tool">
+  <meta name="design-style" content="kiln">
+  <title>Vedic Recitation Syllabus Divider &amp; Schedule Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: unbleached linen and river clay (Kiln) */
+      --background: #f4f1ea;
+      --surface-container-low: #ebe6db;
+      --surface-container: #e3ddd0;
+      --surface-container-high: #d9d1c2;
+      --surface-input: #faf8f3;
+
+      /* Ink */
+      --on-surface: #1c1b18;
+      --on-surface-variant: #5e5a51;
+
+      /* Rules */
+      --outline: #1c1b18;
+      --outline-variant: #d2cbbd;
+
+      /* Accents */
+      --primary: #1c1b18;
+      --on-primary: #f4f1ea;
+      --primary-container: #ebe6db;
+      --on-primary-container: #1c1b18;
+      --secondary: #4a5d46;
+      --tertiary: #9e3b2b;
+      --error: #9e2a22;
+      --on-error: #f4f1ea;
+
+      /* Semantic */
+      --positive: #3d5c3a;
+      --warning: #8a5a19;
+      --badge-moss-bg: #dde4da;
+      --badge-cinnabar-bg: #f0ddd9;
+      --badge-ochre-bg: #ece3d2;
+      --focus: #1c1b18;
+
+      /* Data series */
+      --data-1: #4a5d46;
+      --data-2: #9e3b2b;
+      --data-3: #1c1b18;
+      --data-4: #8a6f48;
+      --data-context: #c7bfb0;
+
+      /* Fonts */
+      --font-headline: 'Shippori Mincho', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      /* Style effects */
+      --rule-sumi-left: 2px solid var(--outline);
+      --rule-cinnabar-left: 2px solid var(--tertiary);
+      --rule-moss-left: 2px solid var(--secondary);
+      --rule-sumi: 1px solid var(--outline);
+      --rule-linen: 1px solid var(--outline-variant);
+      --label-tracking: 0.14em;
+
+      /* Type scale (Focused Tool) */
+      --display-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      max-width: 1320px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Header & Cinnabar Attribution Seal */
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--rule-sumi);
+    }
+
+    .header-title-block {
+      max-width: 68ch;
+    }
+
+    .kicker {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      margin: 0 0 var(--space-xs) 0;
+    }
+
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--display-size);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .subhead-moss {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      line-height: 1.38;
+      color: var(--secondary);
+      margin: var(--space-xs) 0 0 0;
+    }
+
+    .seal-stamp-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--space-xs);
+      flex-shrink: 0;
+    }
+
+    .attribution-seal {
+      border: 1px solid var(--tertiary);
+      color: var(--tertiary);
+      background-color: var(--background);
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      white-space: nowrap;
+    }
+
+    .seal-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Headline KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .washi-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .washi-card.cinnabar-spine {
+      border-left: var(--rule-cinnabar-left);
+    }
+
+    .washi-card.moss-spine {
+      border-left: var(--rule-moss-left);
+    }
+
+    .label {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface-variant);
+    }
+
+    .washi-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.45rem, 1.2rem + 0.8vw, 1.85rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .washi-card .note {
+      color: var(--secondary);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* Main Asymmetric Workspace */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .panel-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--rule-linen);
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .section-sub {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+      max-width: 65ch;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: var(--rule-sumi);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn:hover:not(:disabled) {
+      background-color: var(--surface-container-high);
+    }
+
+    .btn:active:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border: var(--rule-sumi);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .btn-danger {
+      border-color: var(--error);
+      color: var(--error);
+      background-color: var(--background);
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background-color: var(--badge-cinnabar-bg);
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Form Controls */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .field-label {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-xs);
+    }
+
+    .field-hint {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--on-surface-variant);
+      font-weight: 400;
+    }
+
+    .input-control, .select-control {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-sm);
+      background-color: var(--surface-input);
+      border: var(--rule-linen);
+      border-bottom: var(--rule-sumi);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .select-control {
+      padding-right: var(--space-lg);
+      cursor: pointer;
+    }
+
+    .input-control:focus, .select-control:focus {
+      background-color: var(--surface-input);
+      box-shadow: inset 0 -1px 0 0 var(--outline);
+    }
+
+    .slider-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 88px;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--secondary);
+      cursor: pointer;
+      min-height: 36px;
+    }
+
+    .two-col-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    .three-col-fields {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+
+    /* Subject & Book Cards */
+    .subject-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .subject-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .subject-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-linen);
+    }
+
+    .subject-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .subject-name {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .subject-stats {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+    }
+
+    .book-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .book-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 92px 44px;
+      gap: var(--space-sm);
+      align-items: center;
+      padding: var(--space-xs) 0;
+      border-bottom: var(--rule-linen);
+    }
+
+    .book-row:last-child {
+      border-bottom: none;
+    }
+
+    .book-name-input {
+      min-height: 38px;
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--surface-input);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      width: 100%;
+    }
+
+    .book-pages-input {
+      min-height: 38px;
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--surface-input);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.875rem;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      width: 100%;
+    }
+
+    .icon-btn {
+      min-height: 38px;
+      min-width: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .icon-btn:hover {
+      background-color: var(--badge-cinnabar-bg);
+      color: var(--error);
+    }
+
+    .add-book-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 86px auto;
+      gap: var(--space-sm);
+      align-items: end;
+      padding-top: var(--space-xs);
+    }
+
+    /* Tags */
+    .patha-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 2px var(--space-sm);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: var(--rule-linen);
+      white-space: nowrap;
+    }
+
+    .patha-tag.prakriti {
+      background-color: var(--badge-moss-bg);
+      color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .patha-tag.vikriti {
+      background-color: var(--badge-cinnabar-bg);
+      color: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+
+    /* Status / Inline Message */
+    .status-banner {
+      padding: var(--space-sm) var(--space-md);
+      border-left: var(--rule-moss-left);
+      background-color: var(--surface-container-low);
+      font-size: 0.875rem;
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .status-banner.error {
+      border-left-color: var(--error);
+      background-color: var(--badge-cinnabar-bg);
+      color: var(--error);
+    }
+
+    .status-banner.warning {
+      border-left-color: var(--warning);
+      background-color: var(--badge-ochre-bg);
+    }
+
+    .hidden { display: none !important; }
+
+    /* Slot Overview Strip */
+    .slot-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .slot-pill {
+      background: var(--surface-container);
+      border-left: var(--rule-moss-left);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+    }
+
+    .slot-pill-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .slot-pill-time {
+      font-family: var(--font-label);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Tables (Kiln style: 1px sumi rule above/below header, linen rules between rows, no zebra) */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .kiln-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .kiln-table thead th {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      text-align: left;
+      padding: var(--space-sm) var(--space-sm);
+      border-top: var(--rule-sumi);
+      border-bottom: var(--rule-sumi);
+      white-space: nowrap;
+    }
+
+    .kiln-table tbody td {
+      padding: var(--space-sm) var(--space-sm);
+      border-bottom: var(--rule-linen);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+
+    .kiln-table tbody tr:hover {
+      background-color: var(--surface-container-low);
+    }
+
+    .kiln-table tbody tr.completed-row {
+      opacity: 0.62;
+    }
+
+    .num-cell {
+      font-family: var(--font-label);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .seq-code {
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      color: var(--on-surface-variant);
+      display: block;
+      margin-top: var(--space-xs);
+      line-height: 1.45;
+    }
+
+    .day-check {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--secondary);
+      cursor: pointer;
+    }
+
+    /* Chart Container */
+    .chart-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .chart-box {
+      position: relative;
+      width: 100%;
+      min-height: 320px;
+      height: 340px;
+    }
+
+    /* Interactive Patha Sequence Simulator & Cognitive Mapper */
+    .simulator-box {
+      background: var(--surface-container-low);
+      border-left: var(--rule-cinnabar-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .sequence-output {
+      background: var(--surface-input);
+      border: var(--rule-linen);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--on-surface);
+    }
+
+    .cognitive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .cog-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .cog-card.vikriti-card {
+      border-left: var(--rule-cinnabar-left);
+    }
+
+    .cog-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .cog-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin: 0;
+    }
+
+    .cog-formula {
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      color: var(--secondary);
+      background: var(--background);
+      padding: var(--space-xs) var(--space-sm);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+    }
+
+    .cog-detail {
+      font-size: 0.875rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .cog-meta-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--secondary);
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    /* Empty State */
+    .empty-state {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      padding: var(--space-xl) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      align-items: flex-start;
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--rule-sumi);
+      padding-top: var(--space-md);
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-md);
+      }
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .seal-stamp-group {
+        align-items: flex-start;
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .two-col-fields, .three-col-fields {
+        grid-template-columns: 1fr;
+      }
+      .book-row {
+        grid-template-columns: minmax(0, 1fr) 74px 40px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-title-block">
+        <p class="kicker">Prakṛti &amp; Vikṛti Pedagogy · Oral Transmission Architecture</p>
+        <h1 class="display">Vedic Recitation Syllabus Divider &amp; Schedule Planner</h1>
+        <p class="subhead-moss">Partition multi-subject syllabi into daily time slots using classical error-correcting Pāṭha algorithms, revision intensity metrics, and neurocognitive mapping.</p>
+      </div>
+      <div class="seal-stamp-group">
+        <div class="attribution-seal">made by vipra uvacha</div>
+        <span class="seal-meta">5 Pāṭhas · Prakṛti &amp; Vikṛti</span>
+      </div>
+    </header>
+
+    <!-- Lead With The Answer: Live KPI Strip -->
+    <section aria-label="Syllabus Schedule Summary">
+      <div class="kpi-grid">
+        <div class="washi-card">
+          <span class="label">Total Syllabus Scope</span>
+          <span class="value" id="kpi-total-pages">0 pp</span>
+          <span class="note" id="kpi-subjects-books">0 subjects · 0 books</span>
+        </div>
+        <div class="washi-card cinnabar-spine">
+          <span class="label">Effective Revision Volume</span>
+          <span class="value" id="kpi-effective-passes">0 pass-eq</span>
+          <span class="note" id="kpi-avg-multiplier">1.0× weighted intensity</span>
+        </div>
+        <div class="washi-card moss-spine">
+          <span class="label">Completion Horizon</span>
+          <span class="value" id="kpi-total-days">0 days</span>
+          <span class="note" id="kpi-total-hours">0.0 total study hrs</span>
+        </div>
+        <div class="washi-card">
+          <span class="label">Daily Output Rate</span>
+          <span class="value" id="kpi-daily-pages">0.0 pp/day</span>
+          <span class="note" id="kpi-slot-breakdown">0 slots/day · 0.0 hrs/slot</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Notification Banner -->
+    <div id="status-banner" class="status-banner hidden" role="status" aria-live="polite">
+      <span id="status-message"></span>
+      <button type="button" class="btn btn-sm" onclick="dismissStatus()">Dismiss</button>
+    </div>
+
+    <!-- Main Two-Column Workspace -->
+    <main class="workspace-grid">
+      <!-- LEFT COLUMN: Cadence Controls + Syllabus Input -->
+      <div class="panel-column">
+        <!-- Presets -->
+        <section class="section-block" aria-labelledby="presets-heading">
+          <div class="section-head">
+            <h2 class="section-title" id="presets-heading">Course Presets</h2>
+            <span class="label">Quick Start</span>
+          </div>
+          <p class="section-sub">Load a reference syllabus to inspect Pāṭha partitioning immediately, or clear to enter your own subjects and books.</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-sm" onclick="loadPreset('vedic')">Vedic &amp; Sanskrit</button>
+            <button type="button" class="btn btn-sm" onclick="loadPreset('stem')">Medical / STEM</button>
+            <button type="button" class="btn btn-sm" onclick="loadPreset('law')">Law &amp; Policy</button>
+            <button type="button" class="btn btn-sm btn-danger" id="btn-clear-syllabus" onclick="clearSyllabusConfirm(this)">Clear All</button>
+          </div>
+        </section>
+
+        <!-- Daily Time & Speed Configuration -->
+        <section class="section-block" aria-labelledby="cadence-heading">
+          <div class="section-head">
+            <h2 class="section-title" id="cadence-heading">Daily Study Cadence</h2>
+            <span class="label">Time &amp; Speed</span>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="input-daily-hours">
+              <span>Daily Study Hours</span>
+              <span class="field-hint">Total hours/day</span>
+            </label>
+            <div class="slider-pair">
+              <input type="range" id="slider-daily-hours" min="0.5" max="14" step="0.5" value="4.5" oninput="syncHoursFromSlider(this.value)">
+              <input type="number" class="input-control" id="input-daily-hours" min="0.5" max="14" step="0.5" value="4.5" oninput="syncHoursFromNumber(this.value)">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="input-slots-per-day">
+              <span>Time Slots per Day</span>
+              <span class="field-hint">Divide day across subjects</span>
+            </label>
+            <div class="slider-pair">
+              <input type="range" id="slider-slots-per-day" min="1" max="6" step="1" value="3" oninput="syncSlotsFromSlider(this.value)">
+              <input type="number" class="input-control" id="input-slots-per-day" min="1" max="6" step="1" value="3" oninput="syncSlotsFromNumber(this.value)">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="input-reading-speed">
+              <span>Baseline Reading Speed (Samhitā 1×)</span>
+              <span class="field-hint">Pages per hour</span>
+            </label>
+            <div class="slider-pair">
+              <input type="range" id="slider-reading-speed" min="2" max="60" step="1" value="12" oninput="syncSpeedFromSlider(this.value)">
+              <input type="number" class="input-control" id="input-reading-speed" min="2" max="60" step="1" value="12" oninput="syncSpeedFromNumber(this.value)">
+            </div>
+          </div>
+
+          <div class="two-col-fields">
+            <div class="field">
+              <label class="field-label" for="select-slot-strategy">Slot Division Mode</label>
+              <select class="select-control" id="select-slot-strategy" onchange="updateSetting('slotStrategy', this.value)">
+                <option value="parallel">Parallel Rotation (Multi-Subject)</option>
+                <option value="weighted">Weighted by Effective Load</option>
+                <option value="sequential">Sequential Subject Mastery</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="select-intensity-mode">Multiplier Scale</label>
+              <select class="select-control" id="select-intensity-mode" onchange="updateSetting('intensityMode', this.value)">
+                <option value="strict">Strict Vedic (1× / 1.5× / 2× / 6× / 13×)</option>
+                <option value="adapted">Adapted Study (1× / 1.25× / 1.5× / 3× / 6×)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="two-col-fields">
+            <div class="field">
+              <label class="field-label" for="input-start-date">Schedule Start Date</label>
+              <input type="date" class="input-control" id="input-start-date" onchange="updateSetting('startDate', this.value)">
+            </div>
+            <div class="field">
+              <label class="field-label" for="input-start-time">First Slot Start Time</label>
+              <input type="time" class="input-control" id="input-start-time" value="07:00" onchange="updateSetting('startTime', this.value)">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="select-global-patha">
+              <span>Apply Uniform Pāṭha to All Subjects</span>
+              <span class="field-hint">Optional batch override</span>
+            </label>
+            <div class="two-col-fields">
+              <select class="select-control" id="select-global-patha">
+                <option value="samhita">Prakṛti · Samhitā (1× Continuous)</option>
+                <option value="pada">Prakṛti · Pada (Word-by-Word)</option>
+                <option value="krama">Prakṛti · Krama (Paired 2×)</option>
+                <option value="jata">Vikṛti · Jaṭā (Braided 6×)</option>
+                <option value="ghana">Vikṛti · Ghana (Dense 13×)</option>
+              </select>
+              <button type="button" class="btn" onclick="applyGlobalPatha()">Apply to All</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Course Syllabus Builder -->
+        <section class="section-block" aria-labelledby="syllabus-heading">
+          <div class="section-head">
+            <h2 class="section-title" id="syllabus-heading">Course Syllabus Builder</h2>
+            <span class="label" id="syllabus-count-badge">0 Subjects</span>
+          </div>
+          <p class="section-sub">Add subjects, assign each a Prakṛti or Vikṛti recitation method, and list books with exact page counts.</p>
+
+          <!-- Add Subject Form -->
+          <div class="three-col-fields">
+            <div class="field">
+              <label class="field-label" for="new-subject-name">New Subject</label>
+              <input type="text" class="input-control" id="new-subject-name" placeholder="e.g., Neurophysiology">
+            </div>
+            <div class="field">
+              <label class="field-label" for="new-subject-patha">Pāṭha Method</label>
+              <select class="select-control" id="new-subject-patha">
+                <option value="samhita">Samhitā (Prakṛti)</option>
+                <option value="pada">Pada (Prakṛti)</option>
+                <option value="krama" selected>Krama (Prakṛti)</option>
+                <option value="jata">Jaṭā (Vikṛti)</option>
+                <option value="ghana">Ghana (Vikṛti)</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addSubject()">Add Subject</button>
+          </div>
+
+          <!-- Subject Cards Container -->
+          <div id="subjects-container" class="subject-list"></div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: Daily Schedule, Intensity Comparison, Cognitive Map -->
+      <div class="panel-column">
+        <!-- Daily Time-Slot Schedule -->
+        <section class="section-block" aria-labelledby="schedule-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="schedule-heading">Daily Study Schedule &amp; Slot Partition</h2>
+              <p class="section-sub" id="schedule-subtitle">Pages per slot and algorithmic recitation sequence per Pāṭha method.</p>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary btn-sm" onclick="exportScheduleCSV()">Download CSV</button>
+              <button type="button" class="btn btn-sm" onclick="exportScheduleText()">Download Plan (.txt)</button>
+              <button type="button" class="btn btn-sm" id="btn-copy-md" onclick="copyScheduleMarkdown()">Copy Markdown</button>
+            </div>
+          </div>
+
+          <!-- Daily Slot Windows Strip -->
+          <div id="slot-strip" class="slot-strip" aria-label="Daily Time Slot Windows"></div>
+
+          <!-- Schedule Filters & Progress -->
+          <div class="two-col-fields">
+            <div class="field">
+              <label class="field-label" for="filter-subject">Filter Schedule by Subject</label>
+              <select class="select-control" id="filter-subject" onchange="updateScheduleFilter(this.value)">
+                <option value="all">All Subjects</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="select-day-limit">Display Horizon</label>
+              <select class="select-control" id="select-day-limit" onchange="updateDayLimit(this.value)">
+                <option value="14">First 14 Days</option>
+                <option value="30" selected>First 30 Days</option>
+                <option value="60">First 60 Days</option>
+                <option value="all">Entire Schedule</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="schedule-progress-bar" class="status-banner">
+            <span id="progress-summary-text">0 of 0 slots marked complete (0%)</span>
+            <button type="button" class="btn btn-sm" id="btn-reset-checks" onclick="resetCompletedSlots(this)">Reset Checks</button>
+          </div>
+
+          <!-- Schedule Table -->
+          <div id="schedule-container"></div>
+        </section>
+
+        <!-- Comparative Revision Intensity Metrics -->
+        <section class="section-block" aria-labelledby="intensity-heading">
+          <div class="section-head">
+            <h2 class="section-title" id="intensity-heading">Comparative Revision Intensity Metrics</h2>
+            <span class="label" id="intensity-scope-label">Evaluated on Current Syllabus</span>
+          </div>
+          <p class="section-sub">Compares how your total syllabus pages scale in repetition density, completion days, and error-detection strength across all five Vedic Pāṭhas.</p>
+
+          <div class="chart-card">
+            <div class="section-head">
+              <span class="label">Syllabus Days to Complete vs. Effective Revision Passes</span>
+              <div class="btn-row">
+                <button type="button" class="btn btn-sm" id="chart-mode-days" onclick="setChartMetric('days')">Days Needed</button>
+                <button type="button" class="btn btn-sm" id="chart-mode-passes" onclick="setChartMetric('passes')">Effective Passes</button>
+              </div>
+            </div>
+            <div class="chart-box">
+              <canvas id="intensity-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="kiln-table" aria-label="Comparative Patha Revision Intensity">
+              <thead>
+                <tr>
+                  <th>Pāṭha Method</th>
+                  <th>Class</th>
+                  <th>Unit Repeats</th>
+                  <th>Traditional Efficacy</th>
+                  <th>Syllabus Load</th>
+                  <th>Est. Days</th>
+                  <th>Error-Detection Protocol</th>
+                </tr>
+              </thead>
+              <tbody id="intensity-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Interactive Pāṭha Permutator & Cognitive Benefit Mapper -->
+        <section class="section-block" aria-labelledby="cognitive-heading">
+          <div class="section-head">
+            <h2 class="section-title" id="cognitive-heading">Pāṭha Sequence Simulator &amp; Cognitive Benefit Map</h2>
+            <span class="label">Neuroscience &amp; Pedagogy</span>
+          </div>
+          <p class="section-sub">Test how any 4–5 study concepts or book sections are permuted under each Pāṭha, and inspect the cognitive and neurophysiological correlates documented in neuroimaging and EEG studies.</p>
+
+          <div class="simulator-box">
+            <div class="two-col-fields">
+              <div class="field">
+                <label class="field-label" for="sim-terms-input">Sample Study Units (Comma-Separated)</label>
+                <input type="text" class="input-control" id="sim-terms-input" value="1. Axons, 2. Synapses, 3. Myelin, 4. Action Potential, 5. Neurotransmitters" oninput="renderSimulator()">
+              </div>
+              <div class="field">
+                <label class="field-label" for="sim-patha-select">Preview Recitation Method</label>
+                <select class="select-control" id="sim-patha-select" onchange="renderSimulator()">
+                  <option value="samhita">Prakṛti · Samhitā-pāṭha</option>
+                  <option value="pada">Prakṛti · Pada-pāṭha</option>
+                  <option value="krama">Prakṛti · Krama-pāṭha</option>
+                  <option value="jata" selected>Vikṛti · Jaṭā-pāṭha</option>
+                  <option value="ghana">Vikṛti · Ghana-pāṭha</option>
+                </select>
+              </div>
+            </div>
+            <div class="sequence-output" id="sim-output"></div>
+          </div>
+
+          <div id="cognitive-cards-grid" class="cognitive-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Sources & Methodological Grounding -->
+    <footer class="sources-footer">
+      <span class="label">Methodological &amp; Scientific Grounding</span>
+      <span>Recitation permutations (Samhitā, Pada, Krama, Jaṭā, Ghana) and traditional efficacy ratios (2× Pada, 4× Krama, 1,000× Jaṭā, ∞ Ghana, and 13× syllable repetition in Ghana) follow classical Kṛṣṇa Yajurveda and Prātiśākhya oral transmission manuals (VedaVMS Pāṭha guides, Devasthali, and Vedic Heritage frameworks).</span>
+      <span>Cognitive and neurophysiological mappings draw from structural MRI and EEG studies of Vedic mantra recitation (Hartzell's Sanskrit Effect neuroimaging at NBRC/ITPAR, Kumar et al. on gray/white matter plasticity and gyrification, Nalluri's Gabor-transform EEG alpha relaxation factor analysis, Sreenivasan's Medhā Sūktam working-memory trial, and Inbaraj et al. on vagal HRV modulation).</span>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const PATHA_DEFS = {
+      samhita: {
+        id: `samhita`,
+        name: `Samhitā-pāṭha`,
+        shortName: `Samhitā`,
+        category: `Prakṛti`,
+        categoryDesc: `Natural continuous order`,
+        strictMultiplier: 1.0,
+        adaptedMultiplier: 1.0,
+        unitRepeats: `1×`,
+        traditionalEfficacy: `1× (Baseline)`,
+        formula: `A · B · C · D · E`,
+        errorMechanism: `Primary continuous stream bound by euphonic sandhi; no internal checksum.`,
+        cognitiveMechanisms: `Sustained attention, global narrative integration, rhythmic breath-entrainment (pons & medulla respiratory modulation).`,
+        neuroCorrelates: `Alpha wave (8–12 Hz) cortical synchronization for calm alertness; continuous melodic flow (Sāmaveda) linked to up to +25% EEG Relaxation Factor (RF).`,
+        bestFor: `Initial overview, narrative history, literature, big-picture conceptual framing.`
+      },
+      pada: {
+        id: `pada`,
+        name: `Pada-pāṭha`,
+        shortName: `Pada`,
+        category: `Prakṛti`,
+        categoryDesc: `Natural word-by-word isolation`,
+        strictMultiplier: 1.5,
+        adaptedMultiplier: 1.25,
+        unitRepeats: `1× (Dissolved)`,
+        traditionalEfficacy: `2× vs. Samhitā`,
+        formula: `[A] | [B] | [C] | [D] | [E]`,
+        errorMechanism: `Acoustic & lexical checksum: dissolves euphonic sandhi and isolates root stems to prevent boundary drift.`,
+        cognitiveMechanisms: `Cognitive chunking, explicit semantic boundary parsing, conscious pause discipline, and term-level error detection.`,
+        neuroCorrelates: `Left insula and supplementary motor area (SMA) activation for fine phonemic/syllabic articulatory control; prefrontal encoding.`,
+        bestFor: `Technical vocabulary, anatomical/medical terms, mathematical definitions, foreign languages.`
+      },
+      krama: {
+        id: `krama`,
+        name: `Krama-pāṭha`,
+        shortName: `Krama`,
+        category: `Prakṛti`,
+        categoryDesc: `Natural overlapping pairs`,
+        strictMultiplier: 2.0,
+        adaptedMultiplier: 1.5,
+        unitRepeats: `2× (Paired)`,
+        traditionalEfficacy: `4× vs. Samhitā`,
+        formula: `(AB) → (BC) → (CD) → (DE)`,
+        errorMechanism: `Interlocking pair chain: every interior unit appears twice (bound then unbound), breaking immediately if any link is omitted.`,
+        cognitiveMechanisms: `Associative chaining, spaced micro-repetition, sequential transition reinforcement without non-linear jumps.`,
+        neuroCorrelates: `Hippocampal-neocortical consolidation of sequential order; engages left angular gyrus for structured verbal retrieval.`,
+        bestFor: `Multi-step proofs, physiological pathways, historical causation chains, procedural algorithms.`
+      },
+      jata: {
+        id: `jata`,
+        name: `Jaṭā-pāṭha`,
+        shortName: `Jaṭā`,
+        category: `Vikṛti`,
+        categoryDesc: `Braided bidirectional permutation`,
+        strictMultiplier: 6.0,
+        adaptedMultiplier: 3.0,
+        unitRepeats: `6× (Braided)`,
+        traditionalEfficacy: `1,000× vs. Samhitā`,
+        formula: `(AB · BA · AB) → (BC · CB · BC)`,
+        errorMechanism: `Bidirectional mirror check: forward-reverse-forward braiding forces real-time grammatical recalculation across 5 junctions per turn.`,
+        cognitiveMechanisms: `Bidirectional active recall, non-linear retrieval flexibility, immunity to serial-position forgetting.`,
+        neuroCorrelates: `Superior frontal gyrus & right caudate-hippocampal working-memory circuits; drives posterior hippocampal expansion and cerebellar gray matter density (+33% in Pandits).`,
+        bestFor: `High-yield exam theorems, core statutes, pharmacological mechanisms, critical formulas.`
+      },
+      ghana: {
+        id: `ghana`,
+        name: `Ghana-pāṭha`,
+        shortName: `Ghana`,
+        category: `Vikṛti`,
+        categoryDesc: `Dense bell-metal triplet cloud`,
+        strictMultiplier: 13.0,
+        adaptedMultiplier: 6.0,
+        unitRepeats: `Up to 13×`,
+        traditionalEfficacy: `∞ (Infinite)`,
+        formula: `(AB · BA · ABC · CBA · ABC)`,
+        errorMechanism: `Dense 3-word overlapping triplet permutation; mathematically prevents insertion, deletion, or transposition of any unit.`,
+        cognitiveMechanisms: `Deep rhythmic overlearning, 13-fold multi-angle retrieval, long-term cognitive reserve and decay immunity.`,
+        neuroCorrelates: `Bilateral orbitofrontal, parahippocampal, thalamus, right temporal pole thickening, and left angular gyrus growth; alpha/theta co-activation for deep meditative retention.`,
+        bestFor: `Foundational canon, verbatim statutes/axioms, board-exam core texts requiring zero-error mastery.`
+      }
+    };
+
+    const PRESETS = {
+      vedic: {
+        label: `Vedic & Sanskrit Studies`,
+        subjects: [
+          {
+            id: `sub-1`,
+            name: `Ṛgveda Maṇḍala I`,
+            patha: `krama`,
+            books: [
+              { id: `bk-1`, title: `Agni & Indra Hymns (Sūktas 1–50)`, pages: 120 },
+              { id: `bk-2`, title: `Pada-pāṭha & Sandhi Commentary`, pages: 60 }
+            ]
+          },
+          {
+            id: `sub-2`,
+            name: `Kṛṣṇa Yajurveda (Taittirīya)`,
+            patha: `jata`,
+            books: [
+              { id: `bk-3`, title: `Śrī Rudram & Chamakam`, pages: 48 }
+            ]
+          },
+          {
+            id: `sub-3`,
+            name: `Upaniṣads & Vedānta`,
+            patha: `samhita`,
+            books: [
+              { id: `bk-4`, title: `Īśāvāsya & Kena Upaniṣad`, pages: 75 },
+              { id: `bk-5`, title: `Taittirīya Upaniṣad Śikṣāvallī`, pages: 90 }
+            ]
+          }
+        ]
+      },
+      stem: {
+        label: `Medical & Neurobiology`,
+        subjects: [
+          {
+            id: `sub-s1`,
+            name: `Cellular Neurophysiology`,
+            patha: `jata`,
+            books: [
+              { id: `bk-s1`, title: `Ion Channels & Synaptic Transmission`, pages: 64 }
+            ]
+          },
+          {
+            id: `sub-s2`,
+            name: `Clinical Pharmacology`,
+            patha: `pada`,
+            books: [
+              { id: `bk-s2`, title: `Autonomic & CNS Drug Lexicon`, pages: 110 },
+              { id: `bk-s3`, title: `Antimicrobial Mechanisms`, pages: 85 }
+            ]
+          },
+          {
+            id: `sub-s3`,
+            name: `Systems Pathophysiology`,
+            patha: `krama`,
+            books: [
+              { id: `bk-s4`, title: `Cardiopulmonary & Renal Pathways`, pages: 140 }
+            ]
+          }
+        ]
+      },
+      law: {
+        label: `Law & Public Policy`,
+        subjects: [
+          {
+            id: `sub-l1`,
+            name: `Constitutional Doctrines`,
+            patha: `ghana`,
+            books: [
+              { id: `bk-l1`, title: `Foundational Articles & Precedents`, pages: 40 }
+            ]
+          },
+          {
+            id: `sub-l2`,
+            name: `Administrative & Regulatory Law`,
+            patha: `krama`,
+            books: [
+              { id: `bk-l2`, title: `Statutory Interpretation & Procedure`, pages: 135 }
+            ]
+          },
+          {
+            id: `sub-l3`,
+            name: `Global Policy Casebook`,
+            patha: `samhita`,
+            books: [
+              { id: `bk-l3`, title: `Comparative Institutional Briefs`, pages: 210 }
+            ]
+          }
+        ]
+      }
+    };
+
+    let appState = {
+      settings: {
+        dailyHours: 4.5,
+        slotsPerDay: 3,
+        readingSpeed: 12,
+        slotStrategy: `parallel`,
+        intensityMode: `strict`,
+        startDate: new Date().toISOString().slice(0, 10),
+        startTime: `07:00`,
+        filterSubject: `all`,
+        dayLimit: `30`,
+        chartMetric: `days`
+      },
+      subjects: JSON.parse(JSON.stringify(PRESETS.vedic.subjects)),
+      completedSlots: {}
+    };
+
+    let lastComputedPlan = null;
+    let intensityChartInstance = null;
+
+    function getPathaMultiplier(pathaId) {
+      const def = PATHA_DEFS[pathaId] || PATHA_DEFS.samhita;
+      return appState.settings.intensityMode === `adapted` ? def.adaptedMultiplier : def.strictMultiplier;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`)
+        .replace(/'/g, `&#39;`);
+    }
+
+    function showStatus(msg, type = `info`) {
+      const banner = document.getElementById(`status-banner`);
+      const textEl = document.getElementById(`status-message`);
+      if (!banner || !textEl) return;
+      banner.className = `status-banner`;
+      if (type === `error`) banner.classList.add(`error`);
+      if (type === `warning`) banner.classList.add(`warning`);
+      textEl.textContent = msg;
+      banner.classList.remove(`hidden`);
+    }
+
+    function dismissStatus() {
+      const banner = document.getElementById(`status-banner`);
+      if (banner) banner.classList.add(`hidden`);
+    }
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        console.warn(`State persistence skipped:`, err);
+      }
+    }
+
+    function addMinutesToTime(timeStr, minutesToAdd) {
+      const parts = (timeStr || `07:00`).split(`:`);
+      const baseH = parseInt(parts[0], 10) || 7;
+      const baseM = parseInt(parts[1], 10) || 0;
+      const totalM = (baseH * 60 + baseM + Math.round(minutesToAdd)) % (24 * 60);
+      const hh = String(Math.floor(totalM / 60)).padStart(2, `0`);
+      const mm = String(totalM % 60).padStart(2, `0`);
+      return `${hh}:${mm}`;
+    }
+
+    function addDaysToDate(dateStr, daysToAdd) {
+      if (!dateStr) return ``;
+      const parts = dateStr.split(`-`);
+      if (parts.length !== 3) return ``;
+      const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      if (isNaN(d.getTime())) return ``;
+      d.setDate(d.getDate() + daysToAdd);
+      return d.toLocaleDateString(`en-US`, { month: `short`, day: `numeric` });
+    }
+
+    function formatPageRange(startPage, endPage) {
+      const s = Number(startPage.toFixed(1));
+      const e = Number(endPage.toFixed(1));
+      return `pp. ${s}–${e}`;
+    }
+
+    function buildSlotSectionPattern(pathaId, startPage, endPage) {
+      const span = Math.max(0.1, endPage - startPage);
+      const s1 = Number(startPage.toFixed(1));
+      const s2 = Number((startPage + span * 0.33).toFixed(1));
+      const s3 = Number((startPage + span * 0.67).toFixed(1));
+      const s4 = Number(endPage.toFixed(1));
+
+      if (pathaId === `samhita`) {
+        return `Linear continuous flow: §p.${s1} → §p.${s4} (unbroken conceptual synthesis)`;
+      }
+      if (pathaId === `pada`) {
+        return `Word/term isolation: [§${s1}–${s2}] | [§${s2}–${s3}] | [§${s3}–${s4}] (dissolve compounds)`;
+      }
+      if (pathaId === `krama`) {
+        return `Chained pairs: [${s1}+${s2}] → [${s2}+${s3}] → [${s3}+${s4}] (2× boundary check)`;
+      }
+      if (pathaId === `jata`) {
+        return `Braided loops: [${s1}–${s2}, ${s2}–${s1}, ${s1}–${s2}] → [${s2}–${s3}, ${s3}–${s2}, ${s2}–${s3}]`;
+      }
+      return `Dense triplet cloud: [${s1}–${s2}, ${s2}–${s1}, ${s1}–${s2}–${s3}, ${s3}–${s2}–${s1}, ${s1}–${s2}–${s3}]`;
+    }
+
+    function computeSchedule() {
+      const { dailyHours, slotsPerDay, readingSpeed, slotStrategy, startDate, startTime } = appState.settings;
+      const activeSubjects = appState.subjects.filter(s => s.books && s.books.some(b => Number(b.pages) > 0));
+
+      let totalUniquePages = 0;
+      let totalBooks = 0;
+      let totalEffectivePages = 0;
+
+      const subjectQueues = activeSubjects.map(sub => {
+        const mult = getPathaMultiplier(sub.patha);
+        const books = sub.books
+          .filter(b => Number(b.pages) > 0)
+          .map(b => {
+            const pg = Number(b.pages);
+            totalUniquePages += pg;
+            totalBooks += 1;
+            totalEffectivePages += pg * mult;
+            return {
+              bookId: b.id,
+              title: b.title || `Untitled Book`,
+              totalPages: pg,
+              remainingPages: pg,
+              cursorPage: 1
+            };
+          });
+        return {
+          subjectId: sub.id,
+          subjectName: sub.name || `Untitled Subject`,
+          patha: sub.patha,
+          multiplier: mult,
+          books,
+          totalEffRemaining: books.reduce((acc, b) => acc + b.totalPages * mult, 0)
+        };
+      });
+
+      const slotHours = dailyHours / slotsPerDay;
+      const slotCapEffective = readingSpeed * slotHours;
+      const totalStudyHours = readingSpeed > 0 ? totalEffectivePages / readingSpeed : 0;
+      const estDaysExact = dailyHours > 0 ? totalStudyHours / dailyHours : 0;
+
+      const scheduleRows = [];
+      const MAX_SIM_DAYS = 730;
+      let day = 1;
+      let rrIndex = 0;
+      let truncated = false;
+
+      while (subjectQueues.some(sq => sq.books.some(b => b.remainingPages > 0.001))) {
+        if (day > MAX_SIM_DAYS) {
+          truncated = true;
+          break;
+        }
+
+        const dateLabel = addDaysToDate(startDate, day - 1);
+
+        // Determine subject order for today's slots
+        for (let slotIdx = 0; slotIdx < slotsPerDay; slotIdx++) {
+          const unfinished = subjectQueues.filter(sq => sq.books.some(b => b.remainingPages > 0.001));
+          if (unfinished.length === 0) break;
+
+          let chosenSub = null;
+          if (slotStrategy === `sequential`) {
+            chosenSub = unfinished[0];
+          } else if (slotStrategy === `weighted`) {
+            // Pick subject with highest remaining effective load relative to today's picks
+            unfinished.sort((a, b) => b.totalEffRemaining - a.totalEffRemaining);
+            chosenSub = unfinished[0];
+          } else {
+            // Parallel round-robin across active queues
+            for (let probe = 0; probe < subjectQueues.length; probe++) {
+              const candidate = subjectQueues[(rrIndex + probe) % subjectQueues.length];
+              if (candidate.books.some(b => b.remainingPages > 0.001)) {
+                chosenSub = candidate;
+                rrIndex = (rrIndex + probe + 1) % subjectQueues.length;
+                break;
+              }
+            }
+          }
+
+          if (!chosenSub) break;
+
+          let slotHoursLeft = slotHours;
+          let slotSegIndex = 0;
+          const slotMinutesStart = slotIdx * slotHours * 60;
+          const slotStartStr = addMinutesToTime(startTime, slotMinutesStart);
+          const slotEndStr = addMinutesToTime(startTime, slotMinutesStart + slotHours * 60);
+
+          while (slotHoursLeft > 0.01) {
+            // Find active book in chosenSub, or spill to next unfinished subject if chosenSub finished mid-slot
+            let activeSub = chosenSub;
+            let activeBook = activeSub.books.find(b => b.remainingPages > 0.001);
+            if (!activeBook) {
+              activeSub = subjectQueues.find(sq => sq.books.some(b => b.remainingPages > 0.001));
+              if (!activeSub) break;
+              activeBook = activeSub.books.find(b => b.remainingPages > 0.001);
+            }
+
+            const capEff = readingSpeed * slotHoursLeft;
+            const maxUniqueForLeft = capEff / activeSub.multiplier;
+            const takenUnique = Math.min(activeBook.remainingPages, maxUniqueForLeft);
+            const effUsed = takenUnique * activeSub.multiplier;
+            const hrsUsed = effUsed / readingSpeed;
+
+            const startPg = activeBook.cursorPage;
+            const endPg = startPg + takenUnique - (takenUnique >= 1 ? 0 : 0);
+            const displayEndPg = Math.min(activeBook.totalPages, startPg + takenUnique);
+
+            const rowKey = `d${day}-s${slotIdx + 1}-${slotSegIndex}-${activeBook.bookId}`;
+            scheduleRows.push({
+              key: rowKey,
+              day,
+              dateLabel,
+              slotNum: slotIdx + 1,
+              timeWindow: `${slotStartStr}–${slotEndStr}`,
+              slotHours: Number(hrsUsed.toFixed(2)),
+              subjectId: activeSub.subjectId,
+              subjectName: activeSub.subjectName,
+              bookTitle: activeBook.title,
+              patha: activeSub.patha,
+              multiplier: activeSub.multiplier,
+              startPage: startPg,
+              endPage: displayEndPg,
+              pagesInSlot: takenUnique,
+              effectivePasses: effUsed,
+              sectionPattern: buildSlotSectionPattern(activeSub.patha, startPg, displayEndPg)
+            });
+
+            activeBook.remainingPages -= takenUnique;
+            activeBook.cursorPage += takenUnique;
+            activeSub.totalEffRemaining = Math.max(0, activeSub.totalEffRemaining - effUsed);
+            slotHoursLeft -= hrsUsed;
+            slotSegIndex += 1;
+
+            if (activeBook.remainingPages > 0.001) {
+              break;
+            }
+          }
+        }
+        day += 1;
+      }
+
+      const actualDays = scheduleRows.length > 0 ? scheduleRows[scheduleRows.length - 1].day : 0;
+
+      return {
+        totalUniquePages,
+        totalBooks,
+        subjectCount: activeSubjects.length,
+        totalEffectivePages,
+        avgMultiplier: totalUniquePages > 0 ? totalEffectivePages / totalUniquePages : 1,
+        totalStudyHours,
+        estDaysExact,
+        actualDays: truncated ? Math.ceil(estDaysExact) : actualDays,
+        truncated,
+        slotHours,
+        slotCapEffective,
+        scheduleRows
+      };
+    }
+
+    function renderKPIs(plan) {
+      const kpiPages = document.getElementById(`kpi-total-pages`);
+      const kpiSubBooks = document.getElementById(`kpi-subjects-books`);
+      const kpiEff = document.getElementById(`kpi-effective-passes`);
+      const kpiMult = document.getElementById(`kpi-avg-multiplier`);
+      const kpiDays = document.getElementById(`kpi-total-days`);
+      const kpiHours = document.getElementById(`kpi-total-hours`);
+      const kpiDaily = document.getElementById(`kpi-daily-pages`);
+      const kpiSlot = document.getElementById(`kpi-slot-breakdown`);
+
+      if (kpiPages) kpiPages.textContent = `${plan.totalUniquePages.toLocaleString()} pp`;
+      if (kpiSubBooks) kpiSubBooks.textContent = `${plan.subjectCount} subject${plan.subjectCount === 1 ? `` : `s`} · ${plan.totalBooks} book${plan.totalBooks === 1 ? `` : `s`}`;
+      if (kpiEff) kpiEff.textContent = `${Math.round(plan.totalEffectivePages).toLocaleString()} pass-eq`;
+      if (kpiMult) kpiMult.textContent = `${plan.avgMultiplier.toFixed(2)}× weighted Pāṭha intensity`;
+      if (kpiDays) kpiDays.textContent = `${plan.actualDays} day${plan.actualDays === 1 ? `` : `s`}`;
+      if (kpiHours) kpiHours.textContent = `${plan.totalStudyHours.toFixed(1)} total study hrs`;
+
+      const dailyUnique = plan.actualDays > 0 ? plan.totalUniquePages / plan.actualDays : 0;
+      if (kpiDaily) kpiDaily.textContent = `${dailyUnique.toFixed(1)} pp/day`;
+      if (kpiSlot) kpiSlot.textContent = `${appState.settings.slotsPerDay} slots/day · ${plan.slotHours.toFixed(2)} hrs/slot`;
+    }
+
+    function renderSubjects() {
+      const container = document.getElementById(`subjects-container`);
+      const badge = document.getElementById(`syllabus-count-badge`);
+      const filterSelect = document.getElementById(`filter-subject`);
+      if (!container) return;
+
+      if (badge) {
+        badge.textContent = `${appState.subjects.length} Subject${appState.subjects.length === 1 ? `` : `s`}`;
+      }
+
+      if (filterSelect) {
+        const prev = appState.settings.filterSubject;
+        let opts = `<option value="all">All Subjects</option>`;
+        appState.subjects.forEach(s => {
+          opts += `<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)}</option>`;
+        });
+        filterSelect.innerHTML = opts;
+        filterSelect.value = appState.subjects.some(s => s.id === prev) ? prev : `all`;
+        appState.settings.filterSubject = filterSelect.value;
+      }
+
+      if (appState.subjects.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <span class="label">Empty Syllabus</span>
+            <p class="section-sub">No subjects added yet. Add a subject above or load a reference preset to generate your Vedic recitation schedule.</p>
+            <button type="button" class="btn btn-primary btn-sm" onclick="loadPreset('vedic')">Load Vedic Preset</button>
+          </div>
+        `;
+        return;
+      }
+
+      let html = ``;
+      appState.subjects.forEach((sub, sIdx) => {
+        const def = PATHA_DEFS[sub.patha] || PATHA_DEFS.samhita;
+        const mult = getPathaMultiplier(sub.patha);
+        const subPages = sub.books.reduce((acc, b) => acc + (Number(b.pages) || 0), 0);
+        const subEff = subPages * mult;
+        const tagClass = def.category === `Vikṛti` ? `vikriti` : `prakriti`;
+
+        let booksHtml = ``;
+        if (sub.books.length === 0) {
+          booksHtml = `<p class="section-sub">No books in this subject yet. Add a book and page count below.</p>`;
+        } else {
+          sub.books.forEach(bk => {
+            booksHtml += `
+              <div class="book-row">
+                <input type="text" class="book-name-input" aria-label="Book title" value="${escapeHtml(bk.title)}" onchange="updateBookTitle('${escapeHtml(sub.id)}', '${escapeHtml(bk.id)}', this.value)">
+                <input type="number" class="book-pages-input" aria-label="Book page count" min="1" max="5000" value="${Number(bk.pages) || 1}" oninput="updateBookPages('${escapeHtml(sub.id)}', '${escapeHtml(bk.id)}', this.value)">
+                <button type="button" class="icon-btn" title="Remove book" aria-label="Remove book ${escapeHtml(bk.title)}" onclick="removeBook('${escapeHtml(sub.id)}', '${escapeHtml(bk.id)}')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+            `;
+          });
+        }
+
+        html += `
+          <article class="subject-card" aria-label="Subject ${escapeHtml(sub.name)}">
+            <div class="subject-card-header">
+              <div class="subject-title-wrap">
+                <h3 class="subject-name">${escapeHtml(sub.name)}</h3>
+                <span class="subject-stats">${subPages} pp · ${Math.round(subEff)} pass-eq (${mult}×)</span>
+              </div>
+              <div class="btn-row">
+                <span class="patha-tag ${tagClass}">${def.category} · ${def.shortName}</span>
+                <button type="button" class="icon-btn" title="Delete subject" aria-label="Delete subject ${escapeHtml(sub.name)}" onclick="removeSubject('${escapeHtml(sub.id)}')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m-9 0v14h10V6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="patha-select-${sIdx}">Recitation Method (Pāṭha)</label>
+              <select class="select-control" id="patha-select-${sIdx}" onchange="updateSubjectPatha('${escapeHtml(sub.id)}', this.value)">
+                <option value="samhita" ${sub.patha === `samhita` ? `selected` : ``}>Prakṛti · Samhitā-pāṭha (1× Continuous)</option>
+                <option value="pada" ${sub.patha === `pada` ? `selected` : ``}>Prakṛti · Pada-pāṭha (Word-by-Word · ${getPathaMultiplier(`pada`)}×)</option>
+                <option value="krama" ${sub.patha === `krama` ? `selected` : ``}>Prakṛti · Krama-pāṭha (Paired · ${getPathaMultiplier(`krama`)}×)</option>
+                <option value="jata" ${sub.patha === `jata` ? `selected` : ``}>Vikṛti · Jaṭā-pāṭha (Braided · ${getPathaMultiplier(`jata`)}×)</option>
+                <option value="ghana" ${sub.patha === `ghana` ? `selected` : ``}>Vikṛti · Ghana-pāṭha (Dense · ${getPathaMultiplier(`ghana`)}×)</option>
+              </select>
+            </div>
+
+            <div class="book-list">${booksHtml}</div>
+
+            <div class="add-book-bar">
+              <div class="field">
+                <label class="field-label" for="new-book-title-${sIdx}">Add Book / Module</label>
+                <input type="text" class="input-control" id="new-book-title-${sIdx}" placeholder="Book or chapter title">
+              </div>
+              <div class="field">
+                <label class="field-label" for="new-book-pages-${sIdx}">Pages</label>
+                <input type="number" class="input-control" id="new-book-pages-${sIdx}" min="1" max="5000" value="50">
+              </div>
+              <button type="button" class="btn btn-sm" onclick="addBook('${escapeHtml(sub.id)}', ${sIdx})">Add Book</button>
+            </div>
+          </article>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderSlotStrip(plan) {
+      const strip = document.getElementById(`slot-strip`);
+      if (!strip) return;
+      const { slotsPerDay, dailyHours, startTime } = appState.settings;
+      const slotHrs = dailyHours / slotsPerDay;
+      let html = ``;
+      for (let i = 0; i < slotsPerDay; i++) {
+        const sTime = addMinutesToTime(startTime, i * slotHrs * 60);
+        const eTime = addMinutesToTime(startTime, (i + 1) * slotHrs * 60);
+        html += `
+          <div class="slot-pill">
+            <div class="slot-pill-title">Slot ${i + 1} · ${slotHrs.toFixed(2)} hrs</div>
+            <div class="slot-pill-time">${sTime} – ${eTime}</div>
+          </div>
+        `;
+      }
+      strip.innerHTML = html;
+    }
+
+    function renderSchedule(plan) {
+      const container = document.getElementById(`schedule-container`);
+      const subtitle = document.getElementById(`schedule-subtitle`);
+      const progressText = document.getElementById(`progress-summary-text`);
+      if (!container) return;
+
+      const filterSub = appState.settings.filterSubject;
+      const dayLimit = appState.settings.dayLimit === `all` ? Infinity : Number(appState.settings.dayLimit);
+
+      let rows = plan.scheduleRows;
+      if (filterSub !== `all`) {
+        rows = rows.filter(r => r.subjectId === filterSub);
+      }
+
+      const totalFiltered = rows.length;
+      const completedCount = rows.filter(r => appState.completedSlots[r.key]).length;
+      const pct = totalFiltered > 0 ? Math.round((completedCount / totalFiltered) * 100) : 0;
+      if (progressText) {
+        progressText.textContent = `${completedCount} of ${totalFiltered} scheduled segments marked complete (${pct}%)`;
+      }
+
+      if (subtitle) {
+        subtitle.textContent = plan.truncated
+          ? `Showing first 730 days (full horizon: ~${plan.actualDays} days). Reduce Vikṛti load or increase daily hours/speed to shorten timeline.`
+          : `${plan.scheduleRows.length} slot segments across ${plan.actualDays} days · ${plan.slotCapEffective.toFixed(1)} pass-eq capacity per slot.`;
+      }
+
+      if (rows.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <span class="label">No Schedule Generated</span>
+            <p class="section-sub">Add at least one subject and book with positive page counts to build your daily time-slot division.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const visibleRows = rows.filter(r => r.day <= dayLimit);
+      const hiddenCount = rows.length - visibleRows.length;
+
+      let tbody = ``;
+      visibleRows.forEach(r => {
+        const def = PATHA_DEFS[r.patha] || PATHA_DEFS.samhita;
+        const tagClass = def.category === `Vikṛti` ? `vikriti` : `prakriti`;
+        const isDone = Boolean(appState.completedSlots[r.key]);
+        tbody += `
+          <tr class="${isDone ? `completed-row` : ``}">
+            <td>
+              <input type="checkbox" class="day-check" aria-label="Mark Day ${r.day} Slot ${r.slotNum} complete" ${isDone ? `checked` : ``} onchange="toggleSlotComplete('${escapeHtml(r.key)}', this.checked)">
+            </td>
+            <td class="num-cell">
+              <strong>Day ${r.day}</strong>
+              ${r.dateLabel ? `<span class="seq-code">${escapeHtml(r.dateLabel)}</span>` : ``}
+            </td>
+            <td class="num-cell">
+              Slot ${r.slotNum}
+              <span class="seq-code">${escapeHtml(r.timeWindow)} (${r.slotHours}h)</span>
+            </td>
+            <td>
+              <strong>${escapeHtml(r.subjectName)}</strong>
+              <span class="seq-code">${escapeHtml(r.bookTitle)}</span>
+            </td>
+            <td>
+              <span class="patha-tag ${tagClass}">${def.shortName} (${r.multiplier}×)</span>
+            </td>
+            <td class="num-cell">
+              <strong>${r.pagesInSlot.toFixed(1)} pp</strong>
+              <span class="seq-code">${formatPageRange(r.startPage, r.endPage)} · ${r.effectivePasses.toFixed(1)} pass-eq</span>
+            </td>
+            <td>
+              <span>${escapeHtml(r.sectionPattern)}</span>
+            </td>
+          </tr>
+        `;
+      });
+
+      let footerNote = ``;
+      if (hiddenCount > 0) {
+        footerNote = `<p class="section-sub" style="margin-top: var(--space-sm);">Showing days 1–${dayLimit}. Switch Display Horizon to “Entire Schedule” or download CSV to view all ${rows.length} segments.</p>`;
+      }
+
+      container.innerHTML = `
+        <div class="table-wrap">
+          <table class="kiln-table" aria-label="Generated Daily Study Schedule">
+            <thead>
+              <tr>
+                <th>Done</th>
+                <th>Day</th>
+                <th>Time Slot</th>
+                <th>Subject &amp; Book</th>
+                <th>Pāṭha</th>
+                <th>Pages / Slot</th>
+                <th>Section Sequence per Pāṭha</th>
+              </tr>
+            </thead>
+            <tbody>${tbody}</tbody>
+          </table>
+        </div>
+        ${footerNote}
+      `;
+    }
+
+    function renderIntensityMetrics(plan) {
+      const tbody = document.getElementById(`intensity-table-body`);
+      const scopeLabel = document.getElementById(`intensity-scope-label`);
+      const totalPages = plan.totalUniquePages;
+      const dailyCapacityEff = appState.settings.dailyHours * appState.settings.readingSpeed;
+
+      if (scopeLabel) {
+        scopeLabel.textContent = `${totalPages} Syllabus Pages · ${appState.settings.intensityMode === `strict` ? `Strict Vedic` : `Adapted`} Scale`;
+      }
+
+      const methodIds = [`samhita`, `pada`, `krama`, `jata`, `ghana`];
+      const labels = [];
+      const daysData = [];
+      const passesData = [];
+
+      let rowsHtml = ``;
+      methodIds.forEach(id => {
+        const def = PATHA_DEFS[id];
+        const mult = getPathaMultiplier(id);
+        const effPasses = totalPages * mult;
+        const estDays = dailyCapacityEff > 0 ? Math.ceil(effPasses / dailyCapacityEff) : 0;
+        const tagClass = def.category === `Vikṛti` ? `vikriti` : `prakriti`;
+
+        labels.push(def.shortName);
+        daysData.push(estDays);
+        passesData.push(Math.round(effPasses));
+
+        rowsHtml += `
+          <tr>
+            <td><strong>${def.name}</strong><span class="seq-code">${def.formula}</span></td>
+            <td><span class="patha-tag ${tagClass}">${def.category}</span></td>
+            <td class="num-cell">${def.unitRepeats} (${mult}×)</td>
+            <td class="num-cell">${def.traditionalEfficacy}</td>
+            <td class="num-cell">${Math.round(effPasses).toLocaleString()} pass-eq</td>
+            <td class="num-cell"><strong>${estDays} d</strong></td>
+            <td>${def.errorMechanism}</td>
+          </tr>
+        `;
+      });
+
+      if (tbody) tbody.innerHTML = rowsHtml;
+
+      // Update button active states
+      const btnDays = document.getElementById(`chart-mode-days`);
+      const btnPasses = document.getElementById(`chart-mode-passes`);
+      if (btnDays && btnPasses) {
+        const isDays = appState.settings.chartMetric === `days`;
+        btnDays.classList.toggle(`btn-primary`, isDays);
+        btnPasses.classList.toggle(`btn-primary`, !isDays);
+      }
+
+      renderIntensityChart(labels, daysData, passesData);
+    }
+
+    function renderIntensityChart(labels, daysData, passesData) {
+      const canvas = document.getElementById(`intensity-chart`);
+      if (!canvas || typeof Chart === `undefined`) return;
+
+      const styles = getComputedStyle(document.documentElement);
+      const colMoss = styles.getPropertyValue(`--data-1`).trim();
+      const colCinnabar = styles.getPropertyValue(`--data-2`).trim();
+      const colSumi = styles.getPropertyValue(`--data-3`).trim();
+      const colGrid = styles.getPropertyValue(`--outline-variant`).trim();
+      const colText = styles.getPropertyValue(`--on-surface`).trim();
+      const fontLabel = styles.getPropertyValue(`--font-label`).trim();
+
+      const isDays = appState.settings.chartMetric === `days`;
+      const datasetValues = isDays ? daysData : passesData;
+      const seriesLabel = isDays ? `Estimated Completion Days` : `Effective Page-Passes Required`;
+      const barColors = [colMoss, colMoss, colMoss, colCinnabar, colCinnabar];
+
+      if (intensityChartInstance) {
+        intensityChartInstance.destroy();
+      }
+
+      intensityChartInstance = new Chart(canvas.getContext(`2d`), {
+        type: `bar`,
+        data: {
+          labels,
+          datasets: [{
+            label: seriesLabel,
+            data: datasetValues,
+            backgroundColor: barColors,
+            borderRadius: 2,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: colSumi,
+              titleFont: { family: fontLabel },
+              bodyFont: { family: fontLabel }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { color: colSumi, width: 1 },
+              ticks: { color: colText, font: { family: fontLabel, size: 12 } }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: colGrid },
+              border: { display: false },
+              ticks: { color: colText, font: { family: fontLabel, size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    function renderSimulator() {
+      const inputEl = document.getElementById(`sim-terms-input`);
+      const selectEl = document.getElementById(`sim-patha-select`);
+      const outEl = document.getElementById(`sim-output`);
+      if (!inputEl || !selectEl || !outEl) return;
+
+      const raw = inputEl.value.split(`,`).map(t => t.trim()).filter(Boolean);
+      const terms = raw.length >= 2 ? raw.slice(0, 8) : [`Unit A`, `Unit B`, `Unit C`, `Unit D`];
+      const method = selectEl.value;
+      let lines = [];
+
+      if (method === `samhita`) {
+        lines.push(`Continuous Pass: ${terms.join(` · `)}`);
+      } else if (method === `pada`) {
+        lines = terms.map((t, idx) => `Token ${idx + 1}: [${t}]`);
+      } else if (method === `krama`) {
+        for (let i = 0; i < terms.length - 1; i++) {
+          lines.push(`Pair ${i + 1}: (${terms[i]} + ${terms[i + 1]})`);
+        }
+        lines.push(`Terminal Verification: (${terms[terms.length - 1]} iti ${terms[terms.length - 1]})`);
+      } else if (method === `jata`) {
+        for (let i = 0; i < terms.length - 1; i++) {
+          const a = terms[i];
+          const b = terms[i + 1];
+          lines.push(`Braid ${i + 1}: [${a} · ${b}] → [${b} · ${a}] → [${a} · ${b}]`);
+        }
+      } else if (method === `ghana`) {
+        for (let i = 0; i < terms.length - 2; i++) {
+          const a = terms[i];
+          const b = terms[i + 1];
+          const c = terms[i + 2];
+          lines.push(`Cloud ${i + 1}: [${a}·${b}] → [${b}·${a}] → [${a}·${b}·${c}] → [${c}·${b}·${a}] → [${a}·${b}·${c}]`);
+        }
+        if (terms.length >= 2) {
+          const y = terms[terms.length - 2];
+          const z = terms[terms.length - 1];
+          lines.push(`Closing Braid: [${y}·${z}] → [${z}·${y}] → [${y}·${z}]`);
+        }
+      }
+
+      const def = PATHA_DEFS[method];
+      outEl.innerHTML = `
+        <span class="cog-meta-label">${def.name} (${def.category}) · ${lines.length} Recitation Blocks</span>
+        <div>${lines.map(l => `<div>${escapeHtml(l)}</div>`).join(``)}</div>
+      `;
+    }
+
+    function renderCognitiveCards() {
+      const grid = document.getElementById(`cognitive-cards-grid`);
+      if (!grid) return;
+      const order = [`samhita`, `pada`, `krama`, `jata`, `ghana`];
+      let html = ``;
+      order.forEach(id => {
+        const def = PATHA_DEFS[id];
+        const isVikriti = def.category === `Vikṛti`;
+        html += `
+          <article class="cog-card ${isVikriti ? `vikriti-card` : ``}">
+            <div class="cog-card-head">
+              <h3 class="cog-title">${def.name}</h3>
+              <span class="patha-tag ${isVikriti ? `vikriti` : `prakriti`}">${def.category}</span>
+            </div>
+            <div class="cog-formula">${def.formula}</div>
+            <div>
+              <span class="cog-meta-label">Cognitive Mechanisms</span>
+              <p class="cog-detail">${def.cognitiveMechanisms}</p>
+            </div>
+            <div>
+              <span class="cog-meta-label">Neurophysiological Correlates</span>
+              <p class="cog-detail">${def.neuroCorrelates}</p>
+            </div>
+            <div>
+              <span class="cog-meta-label">Optimal Course Material</span>
+              <p class="cog-detail">${def.bestFor}</p>
+            </div>
+          </article>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    function syncControlsToState() {
+      const s = appState.settings;
+      const map = [
+        [`slider-daily-hours`, s.dailyHours],
+        [`input-daily-hours`, s.dailyHours],
+        [`slider-slots-per-day`, s.slotsPerDay],
+        [`input-slots-per-day`, s.slotsPerDay],
+        [`slider-reading-speed`, s.readingSpeed],
+        [`input-reading-speed`, s.readingSpeed],
+        [`select-slot-strategy`, s.slotStrategy],
+        [`select-intensity-mode`, s.intensityMode],
+        [`input-start-date`, s.startDate],
+        [`input-start-time`, s.startTime],
+        [`select-day-limit`, s.dayLimit]
+      ];
+      map.forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+    }
+
+    function recomputeAndRender() {
+      lastComputedPlan = computeSchedule();
+      renderKPIs(lastComputedPlan);
+      renderSlotStrip(lastComputedPlan);
+      renderSchedule(lastComputedPlan);
+      renderIntensityMetrics(lastComputedPlan);
+      persistState();
+    }
+
+    // Dual-input dedicated handlers (no snap-back)
+    function syncHoursFromSlider(val) {
+      const n = Math.max(0.5, Math.min(14, Number(val) || 4));
+      appState.settings.dailyHours = n;
+      const numEl = document.getElementById(`input-daily-hours`);
+      if (numEl) numEl.value = n;
+      recomputeAndRender();
+    }
+
+    function syncHoursFromNumber(val) {
+      const n = Math.max(0.5, Math.min(14, Number(val) || 0.5));
+      appState.settings.dailyHours = n;
+      const slEl = document.getElementById(`slider-daily-hours`);
+      if (slEl) slEl.value = n;
+      recomputeAndRender();
+    }
+
+    function syncSlotsFromSlider(val) {
+      const n = Math.max(1, Math.min(6, parseInt(val, 10) || 1));
+      appState.settings.slotsPerDay = n;
+      const numEl = document.getElementById(`input-slots-per-day`);
+      if (numEl) numEl.value = n;
+      recomputeAndRender();
+    }
+
+    function syncSlotsFromNumber(val) {
+      const n = Math.max(1, Math.min(6, parseInt(val, 10) || 1));
+      appState.settings.slotsPerDay = n;
+      const slEl = document.getElementById(`slider-slots-per-day`);
+      if (slEl) slEl.value = n;
+      recomputeAndRender();
+    }
+
+    function syncSpeedFromSlider(val) {
+      const n = Math.max(2, Math.min(60, Number(val) || 12));
+      appState.settings.readingSpeed = n;
+      const numEl = document.getElementById(`input-reading-speed`);
+      if (numEl) numEl.value = n;
+      recomputeAndRender();
+    }
+
+    function syncSpeedFromNumber(val) {
+      const n = Math.max(2, Math.min(60, Number(val) || 2));
+      appState.settings.readingSpeed = n;
+      const slEl = document.getElementById(`slider-reading-speed`);
+      if (slEl) slEl.value = n;
+      recomputeAndRender();
+    }
+
+    function updateSetting(key, val) {
+      appState.settings[key] = val;
+      recomputeAndRender();
+    }
+
+    function updateScheduleFilter(val) {
+      appState.settings.filterSubject = val;
+      if (lastComputedPlan) renderSchedule(lastComputedPlan);
+      persistState();
+    }
+
+    function updateDayLimit(val) {
+      appState.settings.dayLimit = val;
+      if (lastComputedPlan) renderSchedule(lastComputedPlan);
+      persistState();
+    }
+
+    function setChartMetric(metric) {
+      appState.settings.chartMetric = metric;
+      if (lastComputedPlan) renderIntensityMetrics(lastComputedPlan);
+      persistState();
+    }
+
+    function applyGlobalPatha() {
+      const sel = document.getElementById(`select-global-patha`);
+      if (!sel) return;
+      const chosen = sel.value;
+      appState.subjects.forEach(s => { s.patha = chosen; });
+      renderSubjects();
+      recomputeAndRender();
+      showStatus(`Applied ${PATHA_DEFS[chosen].name} across all ${appState.subjects.length} subjects.`);
+    }
+
+    function loadPreset(presetKey) {
+      const preset = PRESETS[presetKey];
+      if (!preset) return;
+      appState.subjects = JSON.parse(JSON.stringify(preset.subjects));
+      appState.completedSlots = {};
+      appState.settings.filterSubject = `all`;
+      renderSubjects();
+      recomputeAndRender();
+      showStatus(`Loaded “${preset.label}” preset syllabus.`);
+    }
+
+    function clearSyllabusConfirm(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirm Clear?`;
+        setTimeout(() => {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `Clear All`;
+          }
+        }, 3500);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Clear All`;
+      appState.subjects = [];
+      appState.completedSlots = {};
+      renderSubjects();
+      recomputeAndRender();
+      showStatus(`Syllabus cleared. Add subjects and books to generate a fresh schedule.`);
+    }
+
+    function addSubject() {
+      const nameInput = document.getElementById(`new-subject-name`);
+      const pathaSelect = document.getElementById(`new-subject-patha`);
+      if (!nameInput || !pathaSelect) return;
+      const name = nameInput.value.trim();
+      if (!name) {
+        showStatus(`Please enter a subject name before adding.`, `error`);
+        nameInput.focus();
+        return;
+      }
+      const newSub = {
+        id: `sub-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        name,
+        patha: pathaSelect.value,
+        books: [{ id: `bk-${Date.now()}`, title: `${name} Core Text`, pages: 80 }]
+      };
+      appState.subjects.push(newSub);
+      nameInput.value = ``;
+      renderSubjects();
+      recomputeAndRender();
+      showStatus(`Added subject “${name}” with ${PATHA_DEFS[newSub.patha].shortName} recitation.`);
+    }
+
+    function removeSubject(subId) {
+      appState.subjects = appState.subjects.filter(s => s.id !== subId);
+      renderSubjects();
+      recomputeAndRender();
+    }
+
+    function updateSubjectPatha(subId, newPatha) {
+      const sub = appState.subjects.find(s => s.id === subId);
+      if (!sub) return;
+      sub.patha = newPatha;
+      renderSubjects();
+      recomputeAndRender();
+    }
+
+    function addBook(subId, subIdx) {
+      const titleEl = document.getElementById(`new-book-title-${subIdx}`);
+      const pagesEl = document.getElementById(`new-book-pages-${subIdx}`);
+      const sub = appState.subjects.find(s => s.id === subId);
+      if (!sub || !titleEl || !pagesEl) return;
+
+      const title = titleEl.value.trim();
+      const pages = Math.max(1, parseInt(pagesEl.value, 10) || 0);
+      if (!title) {
+        showStatus(`Please enter a book or module title.`, `error`);
+        titleEl.focus();
+        return;
+      }
+      sub.books.push({
+        id: `bk-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        title,
+        pages
+      });
+      renderSubjects();
+      recomputeAndRender();
+      showStatus(`Added “${title}” (${pages} pp) to ${sub.name}.`);
+    }
+
+    function removeBook(subId, bookId) {
+      const sub = appState.subjects.find(s => s.id === subId);
+      if (!sub) return;
+      sub.books = sub.books.filter(b => b.id !== bookId);
+      renderSubjects();
+      recomputeAndRender();
+    }
+
+    function updateBookTitle(subId, bookId, newTitle) {
+      const sub = appState.subjects.find(s => s.id === subId);
+      if (!sub) return;
+      const bk = sub.books.find(b => b.id === bookId);
+      if (!bk) return;
+      bk.title = newTitle.trim() || `Untitled Book`;
+      recomputeAndRender();
+    }
+
+    function updateBookPages(subId, bookId, newPages) {
+      const sub = appState.subjects.find(s => s.id === subId);
+      if (!sub) return;
+      const bk = sub.books.find(b => b.id === bookId);
+      if (!bk) return;
+      const val = Math.max(1, Math.min(5000, parseInt(newPages, 10) || 1));
+      bk.pages = val;
+      recomputeAndRender();
+    }
+
+    function toggleSlotComplete(key, checked) {
+      if (checked) {
+        appState.completedSlots[key] = true;
+      } else {
+        delete appState.completedSlots[key];
+      }
+      if (lastComputedPlan) renderSchedule(lastComputedPlan);
+      persistState();
+    }
+
+    function resetCompletedSlots(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirm Reset?`;
+        setTimeout(() => {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `Reset Checks`;
+          }
+        }, 3500);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reset Checks`;
+      appState.completedSlots = {};
+      if (lastComputedPlan) renderSchedule(lastComputedPlan);
+      persistState();
+    }
+
+    function csvEscape(val) {
+      const str = String(val).replace(/"/g, `""`);
+      return `"${str}"`;
+    }
+
+    function triggerDownload(content, contentType, filename) {
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content,
+          contentType,
+          encoding: `UTF-8`,
+          filename
+        });
+        showStatus(`Exported ${filename}.`);
+        return;
+      }
+      const blob = new Blob([content], { type: `${contentType};charset=utf-8` });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement(`a`);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showStatus(`Downloaded ${filename}.`);
+    }
+
+    function exportScheduleCSV() {
+      if (!lastComputedPlan || lastComputedPlan.scheduleRows.length === 0) {
+        showStatus(`No schedule segments available to export.`, `warning`);
+        return;
+      }
+      const headers = [
+        `Day`, `Date`, `Slot`, `Time Window`, `Slot Hours`, `Subject`, `Book`,
+        `Patha Category`, `Patha Method`, `Multiplier`, `Page Range`, `Pages in Slot`,
+        `Effective Pass-Eq`, `Section Sequence per Patha`, `Completed`
+      ];
+      const lines = [headers.map(csvEscape).join(`,`)];
+      lastComputedPlan.scheduleRows.forEach(r => {
+        const def = PATHA_DEFS[r.patha] || PATHA_DEFS.samhita;
+        const row = [
+          r.day,
+          r.dateLabel || ``,
+          `Slot ${r.slotNum}`,
+          r.timeWindow,
+          r.slotHours,
+          r.subjectName,
+          r.bookTitle,
+          def.category,
+          def.name,
+          `${r.multiplier}x`,
+          formatPageRange(r.startPage, r.endPage),
+          r.pagesInSlot.toFixed(1),
+          r.effectivePasses.toFixed(1),
+          r.sectionPattern,
+          appState.completedSlots[r.key] ? `Yes` : `No`
+        ];
+        lines.push(row.map(csvEscape).join(`,`));
+      });
+      triggerDownload(lines.join(`\n`), `text/csv`, `vedic-recitation-schedule.csv`);
+    }
+
+    function exportScheduleText() {
+      if (!lastComputedPlan || lastComputedPlan.scheduleRows.length === 0) {
+        showStatus(`No schedule segments available to export.`, `warning`);
+        return;
+      }
+      const p = lastComputedPlan;
+      const lines = [
+        `VEDIC RECITATION SYLLABUS SCHEDULE (made by vipra uvacha)`,
+        `====================================================================`,
+        `Total Unique Pages: ${p.totalUniquePages} pp | Subjects: ${p.subjectCount} | Books: ${p.totalBooks}`,
+        `Effective Revision Load: ${Math.round(p.totalEffectivePages)} pass-eq (${p.avgMultiplier.toFixed(2)}x avg)`,
+        `Daily Cadence: ${appState.settings.dailyHours} hrs/day across ${appState.settings.slotsPerDay} slots | Speed: ${appState.settings.readingSpeed} pp/hr`,
+        `Completion Horizon: ${p.actualDays} days (${p.totalStudyHours.toFixed(1)} total study hours)`,
+        ``,
+        `DAILY SLOT BREAKDOWN:`,
+        `--------------------------------------------------------------------`
+      ];
+      let currentDay = -1;
+      p.scheduleRows.forEach(r => {
+        const def = PATHA_DEFS[r.patha] || PATHA_DEFS.samhita;
+        if (r.day !== currentDay) {
+          currentDay = r.day;
+          lines.push(``);
+          lines.push(`DAY ${r.day}${r.dateLabel ? ` (${r.dateLabel})` : ``}`);
+        }
+        lines.push(`  [Slot ${r.slotNum} · ${r.timeWindow} · ${r.slotHours}h] ${r.subjectName} — ${r.bookTitle}`);
+        lines.push(`    Method: ${def.category} ${def.name} (${r.multiplier}x) | ${formatPageRange(r.startPage, r.endPage)} (${r.pagesInSlot.toFixed(1)} pp / ${r.effectivePasses.toFixed(1)} pass-eq)`);
+        lines.push(`    Pattern: ${r.sectionPattern}`);
+      });
+      triggerDownload(lines.join(`\n`), `text/plain`, `vedic-recitation-schedule.txt`);
+    }
+
+    async function copyScheduleMarkdown() {
+      if (!lastComputedPlan || lastComputedPlan.scheduleRows.length === 0) {
+        showStatus(`No schedule segments available to copy.`, `warning`);
+        return;
+      }
+      const lines = [
+        `| Day | Slot | Subject & Book | Pāṭha Method | Pages / Slot | Section Sequence |`,
+        `| --- | --- | --- | --- | --- | --- |`
+      ];
+      lastComputedPlan.scheduleRows.slice(0, 60).forEach(r => {
+        const def = PATHA_DEFS[r.patha] || PATHA_DEFS.samhita;
+        lines.push(`| Day ${r.day} ${r.dateLabel ? `(${r.dateLabel})` : ``} | Slot ${r.slotNum} (${r.timeWindow}) | ${r.subjectName}: ${r.bookTitle} | ${def.shortName} (${r.multiplier}x) | ${r.pagesInSlot.toFixed(1)} pp (${formatPageRange(r.startPage, r.endPage)}) | ${r.sectionPattern} |`);
+      });
+      const md = lines.join(`\n`);
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(md);
+          const btn = document.getElementById(`btn-copy-md`);
+          if (btn) {
+            const orig = btn.textContent;
+            btn.textContent = `Copied!`;
+            setTimeout(() => { btn.textContent = orig; }, 1800);
+          }
+          showStatus(`Copied Markdown schedule table (up to 60 rows) to clipboard.`);
+        } else {
+          triggerDownload(md, `text/plain`, `vedic-recitation-schedule.md`);
+        }
+      } catch (err) {
+        triggerDownload(md, `text/plain`, `vedic-recitation-schedule.md`);
+      }
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (saved.settings) appState.settings = Object.assign({}, appState.settings, saved.settings);
+            if (Array.isArray(saved.subjects)) appState.subjects = saved.subjects;
+            if (saved.completedSlots && typeof saved.completedSlots === `object`) appState.completedSlots = saved.completedSlots;
+          }
+        }
+      } catch (err) {
+        console.warn(`Could not restore saved state:`, err);
+      }
+
+      syncControlsToState();
+      renderSubjects();
+      renderCognitiveCards();
+      renderSimulator();
+      recomputeAndRender();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
